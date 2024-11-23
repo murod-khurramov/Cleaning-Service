@@ -21,4 +21,9 @@ class PageController extends Controller
         return view('services');
     }
 
+    public function project()
+    {
+        return view('project');
+    }
+
 }
