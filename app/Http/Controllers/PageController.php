@@ -10,4 +10,15 @@ class PageController extends Controller
     {
         return view('main');
     }
+
+    public function about()
+    {
+        return view('about');
+    }
+
+    public function services()
+    {
+        return view('services');
+    }
+
 }
