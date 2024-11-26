@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,18 +21,18 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validate([
-            'title' => 'required||max:255',
-            'short_content' => 'required',
-            'content' => 'required',
-        ]);
+        if ($request->hasFile('photo')) {
+            $name = $request->file('photo')->getClientOriginalName();
+            $path = $request->file('photo')->storeAs('post-photos', $name); // post-photos/photo.jpg
+        }
 
         $post = Post::query()->create([
             'title' => $request->input('title'),
             'short_content' => $request->input('short_content'),
             'content' => $request->input('content'),
+            'photo' => $path ?? null,
         ]);
 
         return redirect()->route('posts.index');
