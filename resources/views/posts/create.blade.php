@@ -29,23 +29,24 @@
                             <p class="help-block text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="control-group">
-                        <input name="photo" type="file" class="form-control p-4" id="subject" placeholder="Photo"/>
+                    <div class="control-group mb-3">
+                        <input name="photo" type="file" class="form-control p-4" placeholder="Photo" value="{{ old('photo') }}"/>
                         @error('photo')
                             <p class="help-block text-danger">{{ $message }}</p>
-                        @enderror                    </div>
+                        @enderror
+                    </div>
                     <div class="control-group">
                         <textarea class="form-control p-4" rows="3" name="short_content"
                                   placeholder="Short Content">{{ old('short_content') }}</textarea>
                         @error('short_content')
-                        <p class="help-block text-danger">{{ $message }}</p>
+                            <p class="help-block text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="control-group mt-3">
                         <textarea class="form-control p-4" rows="6" name="content"
                                   placeholder="Content">{{ old('content') }}</textarea>
                         @error('content')
-                        <p class="help-block text-danger">{{ $message }}</p>
+                            <p class="help-block text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
