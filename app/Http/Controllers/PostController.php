@@ -6,17 +6,18 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use function Laravel\Prompts\table;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $posts = Post::all();
         return view('posts.index')->with('posts', $posts);
     }
 
-    public function create()
+    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         return view('posts.create');
     }
@@ -46,18 +47,35 @@ class PostController extends Controller
         ]);
     }
 
-    public function edit(Post $post)
+    public function edit(Post $post): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         return view('posts.edit')->with(['post' => $post]);
     }
 
-    public function update(Request $request, Post $post)
+    public function update(StorePostRequest $request, Post $post): \Illuminate\Http\RedirectResponse
     {
-        //
+        if ($request->hasFile('photo')) {
+
+            if(isset($post->photo)){
+                Storage::delete($post->photo);
+            }
+
+            $name = $request->file('photo')->getClientOriginalName();
+            $path = $request->file('photo')->storeAs('post-photos', $name); // post-photos/photo.jpg
+        }
+
+        $post->update([
+            'title' => $request->input('title'),
+            'short_content' => $request->input('short_content'),
+            'content' => $request->input('content'),
+            'photo' => $path ?? $post->photo,
+        ]);
+
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+
     }
 }
