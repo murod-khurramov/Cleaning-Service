@@ -50,8 +50,11 @@
                         <p class="help-block text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div>
-                        <button class="btn btn-primary btn-block py-3 px-5 mt-3" type="submit">
+                    <div class="flex">
+                        <a href="{{ route('posts.show', [$post->id]) }}" class="btn btn-danger py-3 px-5 mt-3">
+                            Cancel
+                        </a>
+                        <button class="btn btn-success py-3 px-5 mt-3" type="submit">
                             Save
                         </button>
                     </div>
