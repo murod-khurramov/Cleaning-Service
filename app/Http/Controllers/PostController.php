@@ -46,12 +46,12 @@ class PostController extends Controller
         ]);
     }
 
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit');
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
         //
     }
