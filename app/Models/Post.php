@@ -11,11 +11,17 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'title',
         'short_content',
         'content',
         'photo',
     ];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
