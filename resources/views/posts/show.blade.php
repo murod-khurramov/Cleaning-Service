@@ -12,13 +12,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="text-right">
-                        <a class="btn btn-sm btn-outline-dark" href="{{ route('posts.edit', ['post' => $post->id]) }}">
+                    <div class="row mb-4">
+                        <a class="btn btn-sm btn-outline-dark mr-2" href="{{ route('posts.edit', ['post' => $post->id]) }}">
                             Edit
                         </a>
-                        <a class="btn btn-sm btn-outline-danger" href="">
-                            Delete
-                        </a>
+                        <form action="{{ route('posts.destroy', ['post' => $post->id]) }}"
+                              onsubmit="return confirm('Are you sure you wish to delete?');"
+                              method="POST"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                Delete
+                            </button>
+                        </form>
                     </div>
                     <div class="mb-5">
                         <div class="d-flex mb-2">
