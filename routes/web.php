@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -10,8 +11,11 @@ Route::get('/services', [PageController::class, 'services'])->name('services');
 Route::get('/project', [PageController::class, 'project'])->name('project');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
-Route::resource('posts', PostController::class);
-
+Route::resources([
+    'posts' => PostController::class,
+    'comments' => CommentController::class,
+    'users' => UserController::class,
+]);
 
 //Route::get('posts', [PageController::class, 'index'])->name('posts.index');
 //Route::get('posts/{post}', [PageController::class, 'show'])->name('posts.show');
