@@ -20,5 +20,13 @@ class PostSeeder extends Seeder
             'content' => 'Content',
             'photo' => null,
         ]);
+
+        Post::create([
+            'user_id' => 1,
+            'title' => 'Title',
+            'short_content' => 'Short Content',
+            'content' => 'Content',
+            'photo' => null,
+        ]);
     }
 }
