@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,9 @@ class PostController extends Controller
 
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        return view('posts.create');
+        return view('posts.create')->with([
+            'categories', Category::all(),
+        ]);
     }
 
     public function store(StorePostRequest $request): \Illuminate\Http\RedirectResponse
