@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $posts = Post::latest()->paginate(6);
+        $posts = Post::latest()->paginate(9);
         return view('posts.index')->with('posts', $posts);
     }
 
