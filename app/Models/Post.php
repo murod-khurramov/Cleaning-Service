@@ -12,6 +12,7 @@ class Post extends Model
 
     protected $fillable = [
         'user_id',
+        'category_id',
         'title',
         'short_content',
         'content',
@@ -31,5 +32,10 @@ class Post extends Model
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -20,9 +21,13 @@ class PostController extends Controller
 
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        return view('posts.create')->with([
-            'categories', Category::all(),
-        ]);
+//        return view('posts.create')->with([
+//            'categories', Category::all(),
+//            'tags' => Tag::all(),
+//        ]);
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     public function store(StorePostRequest $request): \Illuminate\Http\RedirectResponse
@@ -32,12 +37,20 @@ class PostController extends Controller
             $path = $request->file('photo')->storeAs('post-photos', $name); // post-photos/photo.jpg
         }
 
-        $post = Post::query()->create([
+        $post = Post::create([
+            'user_id' => 1,
+            'category_id' => $request->category_id,
             'title' => $request->input('title'),
             'short_content' => $request->input('short_content'),
             'content' => $request->input('content'),
             'photo' => $path ?? null,
         ]);
+
+        if (isset($request->tags)){
+            foreach ($request->tags as $tag) {
+                $post->tags()->attach($tag);
+            }
+        }
 
         return redirect()->route('posts.index');
     }
