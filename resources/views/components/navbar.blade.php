@@ -14,6 +14,10 @@
             <a href=" {{ route('posts.index') }} " class="nav-item nav-link">Blog</a>
             <a href=" {{ route('contact') }} " class="nav-item nav-link">Contact</a>
         </div>
-        <a href="{{ route('posts.create') }}" class="btn btn-primary mr-3 d-none d-lg-block">Create Post</a>
+        @auth
+            <a href="{{ route('posts.create') }}" class="btn btn-primary mr-3 d-none d-lg-block">Create Post</a>
+        @else
+            <a href="{{ route('login') }}" class="btn btn-primary mr-3 d-none d-lg-block">Login</a>
+        @endauth
     </div>
 </nav>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
@@ -11,10 +12,12 @@ Route::get('/services', [PageController::class, 'services'])->name('services');
 Route::get('/project', [PageController::class, 'project'])->name('project');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
+Route::get('login', [AuthController::class, 'login'])->name('login');
+
 Route::resources([
     'posts' => PostController::class,
     'comments' => CommentController::class,
-//    'users' => UserController::class,
+    'users' => UserController::class,
 ]);
 
 //Route::get('posts', [PageController::class, 'index'])->name('posts.index');
