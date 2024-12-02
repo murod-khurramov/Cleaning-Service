@@ -7,7 +7,7 @@
                         <h3 class="pt-3 font-weight-bold">Register</h3>
                     </div>
                     <div class="panel-body p-3">
-                        <form action="{{ route('authenticate') }}" method="POST">
+                        <form action="{{ route('register.store') }}" method="POST">
                             @csrf
                             <div class="form-group py-2">
                                 <div class="input-field">
