@@ -13,6 +13,11 @@ use function Laravel\Prompts\table;
 
 class PostController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware('auth')->except(['index', 'show']);
+//    }
+
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         $posts = Post::latest()->paginate(9);
