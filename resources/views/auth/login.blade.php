@@ -29,7 +29,7 @@
                                 <a href="#" id="forgot" class="font-weight-bold">Forgot password?</a>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
-                            <div class="text-center pt-4 text-muted">Don't have an account? <a href="#">Sign up</a>
+                            <div class="text-center pt-4 text-muted">Don't have an account? <a href="{{ route('register') }}">Register</a>
                             </div>
                         </form>
                     </div>
