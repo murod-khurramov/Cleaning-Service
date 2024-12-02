@@ -16,6 +16,12 @@
         </div>
         @auth
             <a href="{{ route('posts.create') }}" class="btn btn-primary mr-3 d-none d-lg-block">Create Post</a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="btn btn-danger mr-3 d-none d-lg-block">
+                    Log Out
+                </button>
+            </form>
         @else
             <a href="{{ route('login') }}" class="btn btn-primary mr-3 d-none d-lg-block">Login</a>
         @endauth
