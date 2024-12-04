@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use function Laravel\Prompts\table;
 
@@ -72,11 +73,15 @@ class PostController extends Controller
 
     public function edit(Post $post): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
+        Gate::authorize('update', $post);
+
         return view('posts.edit')->with(['post' => $post]);
     }
 
     public function update(StorePostRequest $request, Post $post): \Illuminate\Http\RedirectResponse
     {
+        Gate::authorize('update', $post);
+
         if ($request->hasFile('photo')) {
 
             if(isset($post->photo)){
