@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Storage;
 
 class  UploadBigFile implements ShouldQueue
 {
@@ -23,6 +24,6 @@ class  UploadBigFile implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        Storage::putFile('big-files', $this->file, 'local');
     }
 }
