@@ -2,11 +2,9 @@
 
 namespace App\Mail;
 
+use App\Models\Post;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class PostCreated extends Mailable
@@ -14,40 +12,30 @@ class PostCreated extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Post Created',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
+     * The post instance.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @var \App\Models\Post
      */
-    public function attachments(): array
+    public $post;
+
+    /**
+     * Create a new message instance.
+     *
+     * @param  \App\Models\Post  $post
+     * @return void
+     */
+    public function __construct(Post $post)
     {
-        return [];
+         $this->post = $post;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('mails.post-created');
     }
 }
