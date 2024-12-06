@@ -65,7 +65,7 @@ class PostController extends Controller
 
 //        UploadBigFile::dispatch($request->file('photo'));
 
-        ChangePost::dispatch($post);
+        ChangePost::dispatch($post)->onQueue('uploading');
 
         return redirect()->route('posts.index');
     }
