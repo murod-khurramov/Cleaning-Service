@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Events\PostCreated;
+use App\Mail\PostCreated as MailPostCreated;
 use App\Http\Requests\StorePostRequest;
 use App\Jobs\ChangePost;
-use App\Jobs\UploadBigFile;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use function Laravel\Prompts\table;
 
@@ -66,6 +67,8 @@ class PostController extends Controller
 //        UploadBigFile::dispatch($request->file('photo'));
 
         ChangePost::dispatch($post)->onQueue('uploading');
+
+        Mail::to($request->user())->send(new MailPostCreated($post));
 
         return redirect()->route('posts.index');
     }
