@@ -68,7 +68,7 @@ class PostController extends Controller
 
         ChangePost::dispatch($post)->onQueue('uploading');
 
-        Mail::to($request->user())->send(new MailPostCreated($post));
+        Mail::to($request->user())->later(now()->addSeconds(10), (new MailPostCreated($post))->onQueue('sending-mails'));
 
         return redirect()->route('posts.index');
     }
