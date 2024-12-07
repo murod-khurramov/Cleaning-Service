@@ -13,7 +13,7 @@ class NotificationController extends Controller
     public function index()
     {
         return view('notifications.index')->with([
-            'posts' => Post::paginate(5),
+            'notifications' => auth()->user()->notifications()->paginate(10 ),
         ]);
     }
 
