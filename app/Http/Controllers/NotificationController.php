@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Container\Attributes\Database;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 
 class NotificationController extends Controller
 {
@@ -15,6 +17,13 @@ class NotificationController extends Controller
         return view('notifications.index')->with([
             'notifications' => auth()->user()->notifications()->paginate(10 ),
         ]);
+    }
+
+    public function  read(DatabaseNotification $notification): \Illuminate\Http\RedirectResponse
+    {
+        $notification->markAsRead();
+
+        return redirect()->back();
     }
 
     /**
