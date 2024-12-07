@@ -9,10 +9,12 @@ use App\Jobs\ChangePost;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Notifications\PostCreated as NotificationPostCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use function Laravel\Prompts\table;
 
@@ -69,6 +71,8 @@ class PostController extends Controller
         ChangePost::dispatch($post)->onQueue('uploading');
 
         Mail::to($request->user())->later(now()->addSeconds(10), (new MailPostCreated($post))->onQueue('sending-mails'));
+
+        Notification::send(auth()->user(), new NotificationPostCreated($post));
 
         return redirect()->route('posts.index');
     }
