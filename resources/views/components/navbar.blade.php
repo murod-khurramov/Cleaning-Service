@@ -14,7 +14,7 @@
         <a href=" {{ route('contact') }} " class="nav-item nav-link">Contact</a>
     </div>
     @auth
-        <a href="" class="btn btn-primary mr-4">
+        <a href="{{ route('notifications.index') }}" class="btn btn-primary mr-4">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
