@@ -24,6 +24,8 @@ Route::post('register', [AuthController::class, 'register_store'])->name('regist
 // Posts routes with middleware
 Route::middleware(['auth'])->group(function () {
     Route::resource('posts', PostController::class)->except(['index', 'show']);
+    Route::get('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
+
 });
 
 // Public post routes
