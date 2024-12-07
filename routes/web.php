@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::resources([
     'comments' => CommentController::class,
     'users' => UserController::class,
+    'notifications' => NotificationController::class,
 ]);
 
 
