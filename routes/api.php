@@ -10,9 +10,12 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('posts', function () {
-    $posts = Cache::remember('posts', 30, function () {
-        return Post::latest()->get();
-    });
+    Cache::forget('posts');
 
-    return $posts;
+//    Cache::flush();
+//    $posts = Cache::remember('posts', 120, function () {
+//        return Post::latest()->get();
+//    });
+//
+//    return $posts;
 });
