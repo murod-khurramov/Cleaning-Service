@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Notifications\PostCreated as NotificationPostCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
@@ -27,7 +28,14 @@ class PostController extends Controller
 
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $posts = Post::latest()->paginate(9);
+//        Cache::pull('posts');
+//        $posts = Post::latest()->paginate(9);
+//        $posts = Post::latest()->get();
+
+        $posts = Cache::remember('posts', 30, function () {
+            return Post::latest()->get();
+        });
+
         return view('posts.index')->with('posts', $posts);
     }
 
