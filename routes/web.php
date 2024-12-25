@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
@@ -31,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
 // Public post routes
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+Route::get('language/{locale}', [LanguageController::class, 'change_locale'])->name('locale.change');
 
 // Other resource routes
 Route::resources([
