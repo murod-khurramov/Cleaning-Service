@@ -13,6 +13,12 @@
         <a href=" {{ route('posts.index') }} " class="nav-item nav-link">Blog</a>
         <a href=" {{ route('contact') }} " class="nav-item nav-link">Contact</a>
     </div>
+    @foreach($all_locales as $locale)
+{{--            @dd($locale)--}}
+        <a href="{{ route('locale.change', ['locale' => $locale]) }}" class="btn btn-primary mr-3 d-none d-lg-block">
+            {{ $locale }}
+        </a>
+    @endforeach
     @auth
         @if(auth()->user()->unreadNotifications)
             <a href="{{ route('notifications.index') }}" class="btn btn-primary mr-4">
