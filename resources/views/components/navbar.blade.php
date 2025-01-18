@@ -6,7 +6,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-nav mr-auto py-0">
-        <a href="/" class="nav-item nav-link active">Home</a>
+        {{ dump($current_locale) }}
+        <a href="/" class="nav-item nav-link active">{{ __('Bosh sahifa') }}</a>
         <a href=" {{ route('about') }} " class="nav-item nav-link">About</a>
         <a href=" {{ route('services') }} " class="nav-item nav-link">Service</a>
         <a href=" {{ route('project') }} " class="nav-item nav-link">Project</a>
